@@ -99,6 +99,8 @@ def people():
     
     st.button("开始吧",on_click=info_click)
     if  st.session_state.click_start:
+        if not pname:
+            return
         rtn = get_info(pname,message)
         st.write(rtn[0])
         st.write("%s的生平简介"%(pname))
@@ -130,6 +132,9 @@ def emotion():
         st.session_state.emo_analyze = False
     
     if st.button("开始分析"):
+        if not ques or not state:
+            st.write("请首先输入问题")
+            return
         message  = [{"role":"system","content":"心理治疗师"}]
         rtn = get_emotion(ques,state,message)
         st.write(rtn[0])

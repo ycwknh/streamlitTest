@@ -128,14 +128,13 @@ def emotion():
 
     if 'emo_analyze' not in st.session_state:
         st.session_state.emo_analyze = False
-    st.button("开始分析",on_click=emo_analyze)
-    if st.session_state.emo_analyze:
+    
+    if st.button("开始分析"):
         message  = [{"role":"system","content":"心理治疗师"}]
         rtn = get_emotion(ques,state,message)
         st.write(rtn[0])
         st.write("下面是一些简单建议：")
         st.write(rtn[1])
-
     return
 
 def story():

@@ -57,6 +57,17 @@ def get_more(people,message):
     res2=chatgpt(message,max_tokens=500,temperature=0)
     return res1,res2
 
+@st.cache_data
+def get_emotion(ques,state,message):
+    msg = "我遇到了一个问题:%s,我的当前心情是%s,请对这种情况做个简单的分析"%(ques,state)
+    message.append({"role":"user","content":msg})
+    res1=chatgpt(message,max_tokens=300,temperature=0.8)
+    message.append({"role":"assistant","content":res["result"]})
+    msg = "就前面的问题,请给出几条建议(每条建议不超过100个汉字)"
+    message.append({"role":"user","content":msg})
+    res2=chatgpt(message,max_tokens=800,temperature=0.8)
+    return res1,res2
+
 def info_click():
     st.session_state.click_start = True
 
@@ -100,11 +111,31 @@ def people():
     return
 
 def emotion():
+    st.title("艾玛 & ChatGPT")
     st.header("情绪支持")
+    if 'api_key' not in st.session_state or not st.session_state.api_key:
+        st.write("请先输入你的chatGPT API Key")
+        return
+    else:
+        openai.api_key = st.session_state.api_key
+
+    message  = [{"role":"system","content":"心理治疗师"}]
+    ques = st.text_input("你遇到了什么问题:",placeholder="请输入问题")
+    state = st.text_input("你当前的心情状态是:",placeholder="请输入心情")
+    rtn = get_emotion(ques,state,message)
+    st.text_area(rtn[0])
+    st.text_area(rtn[1])
+
     return
 
 def story():
+    st.title("艾玛 & ChatGPT")    
     st.header("故事大王")
+    if 'api_key' not in st.session_state or not st.session_state.api_key:
+        st.write("请先输入你的chatGPT API Key")
+        return
+    else:
+        openai.api_key = st.session_state.api_key
     return
 
 app = MultiApp()

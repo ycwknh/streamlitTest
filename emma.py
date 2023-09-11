@@ -132,8 +132,8 @@ def emotion():
     if st.session_state.emo_analyze:
         message  = [{"role":"system","content":"心理治疗师"}]
         rtn = get_emotion(ques,state,message)
-        st.text_write(rtn[0])
-        st.text_write(rtn[1])
+        st.write(rtn[0])
+        st.write(rtn[1])
 
     return
 

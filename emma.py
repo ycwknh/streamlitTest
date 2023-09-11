@@ -74,6 +74,10 @@ def info_click():
 def more_click():
     st.session_state.click_more = True
 
+def emo_analyze():
+    st.session_state.emo_analyze = True
+
+
 def people():
     st.title("艾玛 & ChatGPT")
     st.header("历史人物")

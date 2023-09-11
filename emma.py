@@ -100,6 +100,7 @@ def people():
     st.button("开始吧",on_click=info_click)
     if  st.session_state.click_start:
         if not pname:
+            st.write("请首先输入人物姓名")
             return
         rtn = get_info(pname,message)
         st.write(rtn[0])

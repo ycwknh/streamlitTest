@@ -92,7 +92,7 @@ def people():
 
     if 'click_more' not in st.session_state:
         st.session_state.click_more = False 
-
+    
     st.button("开始吧",on_click=info_click)
     if  st.session_state.click_start:
         rtn = get_info(pname,message)
@@ -119,12 +119,17 @@ def emotion():
     else:
         openai.api_key = st.session_state.api_key
 
-    message  = [{"role":"system","content":"心理治疗师"}]
     ques = st.text_input("你遇到了什么问题:",placeholder="请输入问题")
     state = st.text_input("你当前的心情状态是:",placeholder="请输入心情")
-    rtn = get_emotion(ques,state,message)
-    st.text_area(rtn[0])
-    st.text_area(rtn[1])
+
+    if 'emo_analyze' not in st.session_state:
+        st.session_state.emo_analyze = False
+    st.button("开始分析",on_click=emo_analyze)
+    if st.session_state.emo_analyze:
+        message  = [{"role":"system","content":"心理治疗师"}]
+        rtn = get_emotion(ques,state,message)
+        st.text_write(rtn[0])
+        st.text_write(rtn[1])
 
     return
 

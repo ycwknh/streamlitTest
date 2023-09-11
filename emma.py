@@ -133,6 +133,7 @@ def emotion():
         message  = [{"role":"system","content":"心理治疗师"}]
         rtn = get_emotion(ques,state,message)
         st.write(rtn[0])
+        st.write("下面是一些简单建议：")
         st.write(rtn[1])
 
     return

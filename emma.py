@@ -62,7 +62,7 @@ def get_emotion(ques,state,message):
     msg = "我遇到了一个问题:%s,我的当前心情是%s,请对这种情况做个简单的分析"%(ques,state)
     message.append({"role":"user","content":msg})
     res1=chatgpt(message,max_tokens=300,temperature=0.8)
-    message.append({"role":"assistant","content":res["result"]})
+    message.append({"role":"assistant","content":res1})
     msg = "就前面的问题,请给出几条建议(每条建议不超过100个汉字)"
     message.append({"role":"user","content":msg})
     res2=chatgpt(message,max_tokens=800,temperature=0.8)
